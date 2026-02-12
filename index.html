@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI강서 비전수립 연구용역 — 드림팀</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Black+Han+Sans&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --card-bg: #12182b;
+  --accent-gold: #f0c040;
+  --accent-cyan: #00e5ff;
+  --accent-pink: #ff4081;
+  --accent-green: #69f0ae;
+  --accent-orange: #ff9100;
+  --accent-purple: #b388ff;
+  --text: #e8eaf6;
+  --text-dim: #7986cb;
+  --card-radius: 20px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* === HERO === */
+.hero {
+  text-align: center;
+  padding: 60px 20px 30px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(240,192,64,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.hero .subtitle {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.hero .formation {
+  font-family: 'Caveat', cursive;
+  font-size: 1.6rem;
+  color: var(--accent-gold);
+  opacity: 0.85;
+}
+
+/* === TEAM SECTION === */
+.section-label {
+  text-align: center;
+  margin: 40px 0 25px;
+  position: relative;
+}
+.section-label span {
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+.section-label::after {
+  content: '';
+  position: absolute;
+  left: 10%; right: 10%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* === GRID === */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 30px;
+}
+
+/* === CARD === */
+.card {
+  width: 240px;
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding: 24px 18px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: transform 0.35s cubic-bezier(.4,0,.2,1), box-shadow 0.35s;
+  animation: cardIn 0.6s ease-out both;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* accent colors per team */
+.card.pm::before { background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange)); }
+.card.magok::before { background: linear-gradient(90deg, var(--accent-green), #26c6da); }
+.card.aicenter::before { background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple)); }
+.card.city::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink)); }
+.card.talent::before { background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple)); }
+
+/* === AVATAR === */
+.avatar-wrap {
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 14px;
+  position: relative;
+}
+.avatar-wrap svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+/* === TEXT === */
+.card .name {
+  font-weight: 900;
+  font-size: 1.15rem;
+  margin-bottom: 2px;
+}
+.card .role {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.card .badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.card.pm .badge { background: rgba(240,192,64,0.15); color: var(--accent-gold); }
+.card.magok .badge { background: rgba(105,240,174,0.15); color: var(--accent-green); }
+.card.aicenter .badge { background: rgba(0,229,255,0.15); color: var(--accent-cyan); }
+.card.city .badge { background: rgba(255,145,0,0.15); color: var(--accent-orange); }
+.card.talent .badge { background: rgba(255,64,129,0.15); color: var(--accent-pink); }
+
+.card .bio {
+  font-size: 0.73rem;
+  color: #9fa8da;
+  line-height: 1.55;
+  text-align: left;
+}
+.card .participation {
+  margin-top: 10px;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  opacity: 0.7;
+}
+
+/* === FOOTER === */
+.footer {
+  text-align: center;
+  padding: 40px 20px 50px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* stagger animation */
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.2s; }
+
+@media (max-width: 600px) {
+  .card { width: 90%; max-width: 300px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>AI강서 비전수립 드림팀</h1>
+  <p class="subtitle">차의과학대학교 · ㈜더코어 · 큐리랩 · 룩소르</p>
+  <p class="formation">— Manager Park's 4-Team Formation —</p>
+</div>
+
+<!-- ========== PM ========== -->
+<div class="section-label">
+  <span style="background:rgba(240,192,64,0.12);color:var(--accent-gold);">⚡ 총괄 PM</span>
+</div>
+<div class="team-grid">
+
+  <!-- 박대근 PM -->
+  <div class="card pm" style="width:280px;">
+    <div class="avatar-wrap" style="width:120px;height:120px;">
+      <svg viewBox="0 0 120 120">
+        <!-- face -->
+        <circle cx="60" cy="58" r="38" fill="#ffe0b2"/>
+        <!-- glasses -->
+        <rect x="34" y="48" width="22" height="16" rx="4" fill="none" stroke="#333" stroke-width="2.5"/>
+        <rect x="64" y="48" width="22" height="16" rx="4" fill="none" stroke="#333" stroke-width="2.5"/>
+        <line x1="56" y1="55" x2="64" y2="55" stroke="#333" stroke-width="2"/>
+        <!-- eyes -->
+        <circle cx="45" cy="56" r="3" fill="#333"/>
+        <circle cx="75" cy="56" r="3" fill="#333"/>
+        <circle cx="46" cy="55" r="1" fill="#fff"/>
+        <circle cx="76" cy="55" r="1" fill="#fff"/>
+        <!-- smile -->
+        <path d="M48 70 Q60 80 72 70" fill="none" stroke="#c62828" stroke-width="2" stroke-linecap="round"/>
+        <!-- hair -->
+        <path d="M25 50 Q30 22 60 18 Q90 22 95 50" fill="#3e2723" stroke="none"/>
+        <!-- tie -->
+        <polygon points="56,96 60,108 64,96 60,100" fill="#f0c040"/>
+        <rect x="55" y="92" width="10" height="6" rx="2" fill="#1565c0"/>
+        <!-- suit -->
+        <path d="M30 105 Q35 90 60 92 Q85 90 90 105 L90 120 L30 120Z" fill="#1a237e"/>
+        <!-- sparkle for PM -->
+        <text x="94" y="30" font-size="18">⭐</text>
+      </svg>
+    </div>
+    <div class="name">박대근</div>
+    <div class="role">차의과학대학교 데이터경영학과 교수 · PM</div>
+    <div class="badge">총괄 프로젝트 매니저</div>
+    <div class="bio">
+      연세대 → KAIST 경영공학 박사. 엑센츄어·삼정KPMG 17년 전략컨설팅. RISE사업 AI디지털혁신국장. 국회예산정책처·KDI 재정전망, AI 분석모형 개발 전문. "박딩크 감독"의 포메이션으로 팀을 이끈다.
+    </div>
+    <div class="participation">참여율 50%</div>
+  </div>
+
+</div>
+
+<!-- ========== 마곡협력 ========== -->
+<div class="section-label">
+  <span style="background:rgba(105,240,174,0.12);color:var(--accent-green);">🏭 팀1 — 마곡협력</span>
+</div>
+<div class="team-grid">
+
+  <!-- 김억환 -->
+  <div class="card magok">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffccbc"/>
+        <!-- scholarly look -->
+        <rect x="36" y="49" width="20" height="14" rx="7" fill="none" stroke="#455a64" stroke-width="2"/>
+        <rect x="64" y="49" width="20" height="14" rx="7" fill="none" stroke="#455a64" stroke-width="2"/>
+        <line x1="56" y1="55" x2="64" y2="55" stroke="#455a64" stroke-width="1.5"/>
+        <circle cx="46" cy="55" r="2.5" fill="#37474f"/>
+        <circle cx="74" cy="55" r="2.5" fill="#37474f"/>
+        <path d="M50 70 Q60 76 70 70" fill="none" stroke="#bf360c" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- distinguished hair -->
+        <path d="M27 52 Q32 20 60 16 Q88 20 93 52" fill="#546e7a"/>
+        <!-- book -->
+        <rect x="14" y="85" width="18" height="24" rx="2" fill="#43a047" transform="rotate(-15,23,97)"/>
+        <rect x="16" y="87" width="14" height="20" rx="1" fill="#66bb6a" transform="rotate(-15,23,97)"/>
+        <!-- jacket -->
+        <path d="M32 100 Q38 88 60 90 Q82 88 88 100 L88 120 L32 120Z" fill="#37474f"/>
+        <!-- Warwick flag tiny -->
+        <text x="88" y="28" font-size="14">🇬🇧</text>
+      </svg>
+    </div>
+    <div class="name">김억환</div>
+    <div class="role">차의과학대 경영학전공 교수<br>입학홍보처장</div>
+    <div class="badge">마곡협력</div>
+    <div class="bio">
+      한양대 → U of Minnesota 석사 → Warwick 박사. 인사조직(HRM) 전문. 한국경영교육학회 상임이사. 경영교육·윤리경영의 학자형 리더.
+    </div>
+  </div>
+
+  <!-- 홍연성 -->
+  <div class="card magok">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe0b2"/>
+        <!-- trendy look -->
+        <ellipse cx="45" cy="55" rx="3" ry="3.5" fill="#333"/>
+        <ellipse cx="75" cy="55" rx="3" ry="3.5" fill="#333"/>
+        <circle cx="46" cy="54" r="1" fill="#fff"/>
+        <circle cx="76" cy="54" r="1" fill="#fff"/>
+        <path d="M48 69 Q60 77 72 69" fill="none" stroke="#d32f2f" stroke-width="2" stroke-linecap="round"/>
+        <!-- stylish hair -->
+        <path d="M24 50 Q28 18 60 14 Q92 18 96 50 Q92 42 80 40 L75 28 Q60 22 45 28 L40 40 Q28 42 24 50Z" fill="#4e342e"/>
+        <!-- beauty product -->
+        <rect x="85" y="78" width="10" height="22" rx="4" fill="#e91e63"/>
+        <circle cx="90" cy="76" r="5" fill="#f48fb1"/>
+        <!-- coat -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#880e4f"/>
+        <text x="6" y="30" font-size="14">✨</text>
+      </svg>
+    </div>
+    <div class="name">홍연성</div>
+    <div class="role">㈜큐리랩(CURIELAB) 대표<br>차의과학대 박사과정</div>
+    <div class="badge">마곡협력</div>
+    <div class="bio">
+      프리미엄 스킨케어 브랜드 큐리랩 운영. 뷰티·화장품 산업 현장 경험과 박사과정의 학술 역량을 겸비한 산학 연계 인력.
+    </div>
+    <div class="participation">서류 대기 중</div>
+  </div>
+
+</div>
+
+<!-- ========== AI센터 ========== -->
+<div class="section-label">
+  <span style="background:rgba(0,229,255,0.12);color:var(--accent-cyan);">🤖 팀2 — AI센터 유치</span>
+</div>
+<div class="team-grid">
+
+  <!-- 정경인 -->
+  <div class="card aicenter">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#fce4ec"/>
+        <!-- pharmacist glasses -->
+        <rect x="35" y="48" width="20" height="14" rx="3" fill="none" stroke="#6a1b9a" stroke-width="2"/>
+        <rect x="65" y="48" width="20" height="14" rx="3" fill="none" stroke="#6a1b9a" stroke-width="2"/>
+        <line x1="55" y1="54" x2="65" y2="54" stroke="#6a1b9a" stroke-width="1.5"/>
+        <circle cx="45" cy="55" r="2.5" fill="#4a148c"/>
+        <circle cx="75" cy="55" r="2.5" fill="#4a148c"/>
+        <path d="M48 70 Q60 77 72 70" fill="none" stroke="#c62828" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- hair bun -->
+        <path d="M26 52 Q30 22 60 18 Q90 22 94 52" fill="#3e2723"/>
+        <circle cx="60" cy="14" r="10" fill="#3e2723"/>
+        <!-- pill/medicine -->
+        <ellipse cx="96" cy="86" rx="8" ry="5" fill="#e91e63" transform="rotate(30,96,86)"/>
+        <ellipse cx="100" cy="82" rx="8" ry="5" fill="#fff" transform="rotate(30,100,82)"/>
+        <!-- lab coat -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#f5f5f5"/>
+        <line x1="60" y1="92" x2="60" y2="115" stroke="#e0e0e0" stroke-width="1"/>
+        <text x="5" y="30" font-size="13">💊</text>
+      </svg>
+    </div>
+    <div class="name">정경인</div>
+    <div class="role">차의과학대 AI헬스케어융합학과 학과장<br>약사 · 보건학 박사</div>
+    <div class="badge">AI센터</div>
+    <div class="bio">
+      성균관대 약학 → 서울대 보건학 석·박사. 식약처 AI 딥러닝(CNN) 의약품 인식 시스템 구축 총괄. 펨테크 헬스케어 인재양성. 분석·모델링 담당.
+    </div>
+    <div class="participation">참여율 20%</div>
+  </div>
+
+  <!-- 박대형 -->
+  <div class="card aicenter">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe0b2"/>
+        <!-- strong jaw, builder look -->
+        <rect x="38" y="50" width="18" height="12" rx="2" fill="none" stroke="#333" stroke-width="2"/>
+        <rect x="64" y="50" width="18" height="12" rx="2" fill="none" stroke="#333" stroke-width="2"/>
+        <line x1="56" y1="55" x2="64" y2="55" stroke="#333" stroke-width="1.5"/>
+        <circle cx="47" cy="55" r="2.5" fill="#333"/>
+        <circle cx="73" cy="55" r="2.5" fill="#333"/>
+        <path d="M48 72 Q60 78 72 72" fill="none" stroke="#bf360c" stroke-width="2" stroke-linecap="round"/>
+        <!-- hard hat -->
+        <path d="M24 46 Q30 16 60 12 Q90 16 96 46" fill="#fdd835"/>
+        <rect x="20" y="42" width="80" height="6" rx="3" fill="#f9a825"/>
+        <!-- building -->
+        <rect x="88" y="72" width="16" height="30" rx="2" fill="#78909c"/>
+        <rect x="90" y="76" width="4" height="4" fill="#bbdefb"/>
+        <rect x="98" y="76" width="4" height="4" fill="#bbdefb"/>
+        <rect x="90" y="84" width="4" height="4" fill="#bbdefb"/>
+        <rect x="98" y="84" width="4" height="4" fill="#bbdefb"/>
+        <!-- vest -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#455a64"/>
+        <text x="6" y="30" font-size="13">🏗️</text>
+      </svg>
+    </div>
+    <div class="name">박대형</div>
+    <div class="role">㈜룩소르 대표이사<br>차의과학대 석사과정</div>
+    <div class="badge">AI센터</div>
+    <div class="bio">
+      인천대 경제학 → 건축기사·부동산개발전문인력. E-CON 층간소음 방지 신기술(LH 승인). 건설·시행·시공·분양 원스톱. "AI센터 확실히 하겠다!"
+    </div>
+    <div class="participation">참여율 5%</div>
+  </div>
+
+  <!-- 이완형 -->
+  <div class="card aicenter">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffccbc"/>
+        <!-- wise elder look -->
+        <circle cx="45" cy="55" r="3" fill="#333"/>
+        <circle cx="75" cy="55" r="3" fill="#333"/>
+        <circle cx="46" cy="54" r="1" fill="#fff"/>
+        <circle cx="76" cy="54" r="1" fill="#fff"/>
+        <!-- eyebrows thick -->
+        <path d="M36 47 Q45 42 54 47" fill="none" stroke="#616161" stroke-width="2.5"/>
+        <path d="M66 47 Q75 42 84 47" fill="none" stroke="#616161" stroke-width="2.5"/>
+        <path d="M48 71 Q60 78 72 71" fill="none" stroke="#bf360c" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- gray distinguished hair -->
+        <path d="M26 50 Q30 20 60 16 Q90 20 94 50" fill="#9e9e9e"/>
+        <!-- book stack -->
+        <rect x="6" y="82" width="20" height="5" rx="1" fill="#1565c0"/>
+        <rect x="8" y="76" width="20" height="5" rx="1" fill="#c62828"/>
+        <rect x="4" y="88" width="20" height="5" rx="1" fill="#2e7d32"/>
+        <!-- formal suit -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#263238"/>
+        <polygon points="57,92 60,102 63,92 60,96" fill="#b71c1c"/>
+        <text x="86" y="28" font-size="13">📚</text>
+      </svg>
+    </div>
+    <div class="name">이완형</div>
+    <div class="role">㈜더코어 소장<br>한국외대 경영학 박사</div>
+    <div class="badge">AI센터</div>
+    <div class="bio">
+      경력 30년. AI경영철학·ESG경영·디지털비즈니스 트랜스포메이션 저서 6권. 2020 대한민국학술원 우수학술도서. 비전정책수립·목표설정의 투톱 "손흥민".
+    </div>
+    <div class="participation">참여율 25%</div>
+  </div>
+
+  <!-- 김대현 -->
+  <div class="card aicenter">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe0b2"/>
+        <!-- techy look -->
+        <circle cx="45" cy="55" r="3" fill="#333"/>
+        <circle cx="75" cy="55" r="3" fill="#333"/>
+        <circle cx="46" cy="54" r="1.2" fill="#0f0"/>
+        <circle cx="76" cy="54" r="1.2" fill="#0f0"/>
+        <path d="M50 70 Q60 76 70 70" fill="none" stroke="#bf360c" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- short tech hair -->
+        <path d="M28 50 Q32 22 60 18 Q88 22 92 50" fill="#212121"/>
+        <!-- robot arm -->
+        <rect x="88" y="65" width="8" height="20" rx="3" fill="#78909c"/>
+        <circle cx="92" cy="62" r="5" fill="#90a4ae"/>
+        <circle cx="92" cy="62" r="2" fill="#00e5ff"/>
+        <!-- hoodie -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#1b5e20"/>
+        <path d="M50 90 Q60 95 70 90 Q65 100 60 105 Q55 100 50 90Z" fill="#2e7d32"/>
+        <text x="6" y="28" font-size="13">🤖</text>
+      </svg>
+    </div>
+    <div class="name">김대현</div>
+    <div class="role">㈜더코어 연구실장<br>충남대 지능로봇 석사</div>
+    <div class="badge">AI센터</div>
+    <div class="bio">
+      메카트로닉스·지능로봇 전공. AI 비전센서 불량감지, 신재생에너지 마이크로그리드, 건강검진 AI 솔루션 등 12년 경력의 AI·HW 엔지니어.
+    </div>
+    <div class="participation">참여율 20%</div>
+  </div>
+
+</div>
+
+<!-- ========== 특화도시 ========== -->
+<div class="section-label">
+  <span style="background:rgba(255,145,0,0.12);color:var(--accent-orange);">🏙️ 팀3 — AI 특화도시</span>
+</div>
+<div class="team-grid">
+
+  <!-- 최창환 -->
+  <div class="card city">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe0b2"/>
+        <circle cx="45" cy="55" r="3" fill="#333"/>
+        <circle cx="75" cy="55" r="3" fill="#333"/>
+        <circle cx="46" cy="54" r="1" fill="#fff"/>
+        <circle cx="76" cy="54" r="1" fill="#fff"/>
+        <path d="M46 70 Q60 79 74 70" fill="none" stroke="#c62828" stroke-width="2" stroke-linecap="round"/>
+        <!-- hair -->
+        <path d="M26 50 Q30 20 60 16 Q90 20 94 50" fill="#4e342e"/>
+        <!-- truck/logistics -->
+        <rect x="80" y="78" width="24" height="16" rx="3" fill="#ff9100"/>
+        <rect x="86" y="74" width="14" height="6" rx="2" fill="#ffcc80"/>
+        <circle cx="86" cy="96" r="4" fill="#333"/>
+        <circle cx="98" cy="96" r="4" fill="#333"/>
+        <!-- dress shirt -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#0d47a1"/>
+        <rect x="56" y="92" width="8" height="10" rx="1" fill="#1565c0"/>
+        <text x="6" y="28" font-size="13">🚚</text>
+      </svg>
+    </div>
+    <div class="name">최창환</div>
+    <div class="role">㈜더코어 상무<br>동의대 유통물류학 석사</div>
+    <div class="badge">특화도시</div>
+    <div class="bio">
+      경력 25년. 컨테이너 운송 플랫폼, 삼성전자 TMS, S-OIL WMS, NFC 산업안전관리 등 물류·IT 시스템 개발 전문가. 디지털전략 담당.
+    </div>
+    <div class="participation">참여율 15%</div>
+  </div>
+
+  <!-- 김연준 -->
+  <div class="card city">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe8d6"/>
+        <circle cx="45" cy="55" r="3" fill="#333"/>
+        <circle cx="75" cy="55" r="3" fill="#333"/>
+        <circle cx="46" cy="54" r="1" fill="#fff"/>
+        <circle cx="76" cy="54" r="1" fill="#fff"/>
+        <path d="M50 70 Q60 76 70 70" fill="none" stroke="#bf360c" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- young fresh hair -->
+        <path d="M26 48 Q30 16 60 12 Q90 16 94 48" fill="#5d4037"/>
+        <path d="M40 16 Q50 8 62 14" fill="#5d4037"/>
+        <!-- map/GIS -->
+        <rect x="82" y="72" width="22" height="18" rx="2" fill="#e8f5e9"/>
+        <line x1="86" y1="72" x2="86" y2="90" stroke="#66bb6a" stroke-width="1"/>
+        <line x1="94" y1="72" x2="94" y2="90" stroke="#66bb6a" stroke-width="1"/>
+        <line x1="82" y1="80" x2="104" y2="80" stroke="#66bb6a" stroke-width="1"/>
+        <circle cx="90" cy="80" r="3" fill="none" stroke="#f44336" stroke-width="1.5"/>
+        <!-- casual -->
+        <path d="M32 100 Q38 88 60 90 Q82 88 88 100 L88 120 L32 120Z" fill="#37474f"/>
+        <text x="6" y="28" font-size="13">🗺️</text>
+      </svg>
+    </div>
+    <div class="name">김연준</div>
+    <div class="role">㈜더코어 연구원<br>동국대 지리학 석사과정</div>
+    <div class="badge">특화도시</div>
+    <div class="bio">
+      세종대 공간정보공학. QGIS 플러그인, 국방 디지털트윈, 위성영상 데이터 분석 등 GIS·공간분석 전문. 경력 4년의 영건.
+    </div>
+    <div class="participation">참여율 15%</div>
+  </div>
+
+  <!-- 천동암 -->
+  <div class="card city">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffccbc"/>
+        <!-- CEO authoritative -->
+        <circle cx="45" cy="55" r="3" fill="#333"/>
+        <circle cx="75" cy="55" r="3" fill="#333"/>
+        <circle cx="46" cy="54" r="1" fill="#fff"/>
+        <circle cx="76" cy="54" r="1" fill="#fff"/>
+        <!-- strong eyebrows -->
+        <path d="M35 47 Q45 43 55 48" fill="none" stroke="#424242" stroke-width="2.5"/>
+        <path d="M65 48 Q75 43 85 47" fill="none" stroke="#424242" stroke-width="2.5"/>
+        <path d="M47 71 Q60 79 73 71" fill="none" stroke="#bf360c" stroke-width="2" stroke-linecap="round"/>
+        <!-- slick hair -->
+        <path d="M24 50 Q28 18 60 14 Q92 18 96 50" fill="#37474f"/>
+        <!-- data chart -->
+        <rect x="84" y="70" width="22" height="22" rx="2" fill="#263238"/>
+        <rect x="87" y="82" width="4" height="8" fill="#00e5ff"/>
+        <rect x="93" y="76" width="4" height="14" fill="#f0c040"/>
+        <rect x="99" y="80" width="4" height="10" fill="#ff4081"/>
+        <!-- formal -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#1a1a2e"/>
+        <polygon points="57,92 60,104 63,92 60,97" fill="#c62828"/>
+        <text x="6" y="28" font-size="13">📊</text>
+      </svg>
+    </div>
+    <div class="name">천동암</div>
+    <div class="role">㈜더코어 대표<br>한국해양대 경영학 박사</div>
+    <div class="badge">특화도시</div>
+    <div class="bio">
+      경력 30년. 빅데이터 마케팅, AI 분류 모델링, 삼성전자 물류 효율화, 경제성 타당성 조사 등 다수 수행. 투톱의 "해리 케인" — 환경분석/경영전략 총괄.
+    </div>
+    <div class="participation">참여율 30%</div>
+  </div>
+
+  <!-- 조한나 -->
+  <div class="card city">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#fce4ec"/>
+        <!-- bright eyes -->
+        <ellipse cx="45" cy="55" rx="3.5" ry="4" fill="#333"/>
+        <ellipse cx="75" cy="55" rx="3.5" ry="4" fill="#333"/>
+        <circle cx="46.5" cy="53.5" r="1.5" fill="#fff"/>
+        <circle cx="76.5" cy="53.5" r="1.5" fill="#fff"/>
+        <!-- eyelashes -->
+        <path d="M39 50 L41 47 M43 49 L44 46 M47 49 L49 47" stroke="#333" stroke-width="1"/>
+        <path d="M71 49 L73 47 M75 49 L76 46 M79 50 L81 47" stroke="#333" stroke-width="1"/>
+        <path d="M48 69 Q60 77 72 69" fill="none" stroke="#e91e63" stroke-width="2" stroke-linecap="round"/>
+        <!-- long hair -->
+        <path d="M22 52 Q26 18 60 14 Q94 18 98 52" fill="#5d4037"/>
+        <path d="M22 52 Q20 80 25 100" fill="#5d4037"/>
+        <path d="M98 52 Q100 80 95 100" fill="#5d4037"/>
+        <!-- globe -->
+        <circle cx="96" cy="78" r="10" fill="none" stroke="#26c6da" stroke-width="1.5"/>
+        <ellipse cx="96" cy="78" rx="5" ry="10" fill="none" stroke="#26c6da" stroke-width="1"/>
+        <line x1="86" y1="78" x2="106" y2="78" stroke="#26c6da" stroke-width="1"/>
+        <!-- blouse -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#4a148c"/>
+        <text x="4" y="28" font-size="13">🌏</text>
+      </svg>
+    </div>
+    <div class="name">조한나</div>
+    <div class="role">㈜더코어 연구실장<br>서울대 환경계획학 박사수료</div>
+    <div class="badge">특화도시</div>
+    <div class="bio">
+      서울시립대 첨단녹색도시 석사. 현대차 물류, 캄보디아 마스터플랜, 몽골 경제자유구역, 기후변화 ODA 등 국제도시·물류 프로젝트 20건+.
+    </div>
+    <div class="participation">참여율 20%</div>
+  </div>
+
+</div>
+
+<!-- ========== 인재양성 ========== -->
+<div class="section-label">
+  <span style="background:rgba(255,64,129,0.12);color:var(--accent-pink);">🎓 팀4 — 인재양성</span>
+</div>
+<div class="team-grid">
+
+  <!-- 한세미 -->
+  <div class="card talent">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#fce4ec"/>
+        <ellipse cx="45" cy="55" rx="3" ry="3.5" fill="#333"/>
+        <ellipse cx="75" cy="55" rx="3" ry="3.5" fill="#333"/>
+        <circle cx="46" cy="54" r="1.2" fill="#fff"/>
+        <circle cx="76" cy="54" r="1.2" fill="#fff"/>
+        <!-- glasses thin -->
+        <circle cx="45" cy="55" r="10" fill="none" stroke="#e91e63" stroke-width="1.5"/>
+        <circle cx="75" cy="55" r="10" fill="none" stroke="#e91e63" stroke-width="1.5"/>
+        <line x1="55" y1="55" x2="65" y2="55" stroke="#e91e63" stroke-width="1.2"/>
+        <path d="M48 70 Q60 78 72 70" fill="none" stroke="#c62828" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- bob hair -->
+        <path d="M22 54 Q26 18 60 14 Q94 18 98 54" fill="#3e2723"/>
+        <path d="M22 54 Q20 70 28 82" fill="#3e2723"/>
+        <path d="M98 54 Q100 70 92 82" fill="#3e2723"/>
+        <!-- smartwatch -->
+        <rect x="86" y="88" width="12" height="16" rx="3" fill="#333"/>
+        <rect x="88" y="90" width="8" height="10" rx="1" fill="#e91e63"/>
+        <text x="89" y="98" font-size="6" fill="#fff">♥</text>
+        <!-- jacket -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#880e4f"/>
+        <text x="4" y="28" font-size="13">💗</text>
+      </svg>
+    </div>
+    <div class="name">한세미</div>
+    <div class="role">차의과학대 AI보건의료학부 조교수<br>KAIST 기술경영학 박사</div>
+    <div class="badge">인재양성</div>
+    <div class="bio">
+      디지털헬스케어 전공. 고령친화산업학과 학과장. 웨어러블·비대면진료·시니어 디지털헬스 전문. RISE 업무 연계. 보건복지부 유공자 수상.
+    </div>
+  </div>
+
+  <!-- 김경태 -->
+  <div class="card talent">
+    <div class="avatar-wrap">
+      <svg viewBox="0 0 120 120">
+        <circle cx="60" cy="58" r="36" fill="#ffe0b2"/>
+        <!-- young, bright eyes -->
+        <circle cx="45" cy="55" r="3.5" fill="#333"/>
+        <circle cx="75" cy="55" r="3.5" fill="#333"/>
+        <circle cx="46.5" cy="53.5" r="1.5" fill="#fff"/>
+        <circle cx="76.5" cy="53.5" r="1.5" fill="#fff"/>
+        <path d="M48 70 Q60 78 72 70" fill="none" stroke="#c62828" stroke-width="2" stroke-linecap="round"/>
+        <!-- fresh young hair -->
+        <path d="M24 48 Q28 14 60 10 Q92 14 96 48" fill="#212121"/>
+        <path d="M36 14 Q48 6 62 12" fill="#212121"/>
+        <!-- stethoscope -->
+        <path d="M36 92 Q30 80 28 70" fill="none" stroke="#42a5f5" stroke-width="2.5"/>
+        <circle cx="28" cy="68" r="4" fill="#42a5f5"/>
+        <circle cx="28" cy="68" r="2" fill="#e3f2fd"/>
+        <!-- medical scrubs -->
+        <path d="M30 100 Q36 88 60 90 Q84 88 90 100 L90 120 L30 120Z" fill="#1565c0"/>
+        <path d="M52 90 L52 105" stroke="#1976d2" stroke-width="1"/>
+        <text x="86" y="28" font-size="13">🏥</text>
+      </svg>
+    </div>
+    <div class="name">김경태</div>
+    <div class="role">오크우드봄의원 행정팀장<br>차의과학대 AI헬스케어 박사과정</div>
+    <div class="badge">인재양성</div>
+    <div class="bio">
+      광주대 보건행정 → 한양대 병원행정 석사. 강남 코엑스 오크우드봄의원(500평 병원급) 현장 경험 + AI헬스케어 학문. 의료 AI 실무 연결고리.
+    </div>
+    <div class="participation">참여율 50%</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  AI강서 비전수립 연구용역 · 참여인력 소개 · 2026<br>
+  "박딩크 감독의 4팀 포메이션" — 차의과학대 × 더코어 × 큐리랩 × 룩소르
+</div>
+
+</body>
+</html>
